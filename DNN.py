@@ -5,7 +5,6 @@
 
 import csv
 import numpy as np
-import matplotlib.pyplot as plt
 import keras
 from keras.models import Sequential
 from keras.layers import Dense, Dropout
@@ -144,10 +143,14 @@ def deep_learn(trainIN, trainOUT, testIN, nodesH1, nodesH2, epochs, time_frame):
         
         prediction = DNN.predict(testIN)
         prediction = list(prediction.reshape(len(testIN)))
+    
+    if time_frame == '5day':
+        
+        num_days = 5   
         
     if time_frame == 'weekly':
     
-        num_days = 5
+        num_days = 7
 
     if time_frame == 'biweekly':
 
@@ -197,9 +200,13 @@ def denorm_oneZero(norm_values, orig_inputs, orig_outputs, time_frame):
             denormVal = norm_values[i] * (maxVal - minVal) + minVal
             denorm_values.append(denormVal)
             
-    if time_frame == 'weekly':
+    if time_frame == '5day':
         
         num_days = 5
+            
+    if time_frame == 'weekly':
+        
+        num_days = 7
 
     if time_frame == 'biweekly':
 
@@ -234,10 +241,14 @@ def denorm_relative(norm_values, orig_inputs, orig_outputs, time_frame):
             fVal = orig_inputs[i][0]
             denormVal = (norm_values[i] + 1) * fVal
             denorm_values.append(denormVal)
+            
+    if time_frame == '5day':
+        
+        num_days = 5
         
     if time_frame == 'weekly':
         
-        num_days = 5
+        num_days = 7
 
     if time_frame == 'biweekly':
 
